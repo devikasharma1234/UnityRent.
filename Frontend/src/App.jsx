@@ -4,7 +4,6 @@ import 'aos/dist/aos.css'
 import HomePage from './Landing_Page/Home/HomePage'
 
 
-
 function App() {
 
   const [products, setProducts] = useState([]);

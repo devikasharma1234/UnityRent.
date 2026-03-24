@@ -7,6 +7,8 @@ import Quote from './Quote';
 import StartButton from './StartButton';
 import Footer from '../Footer';
 import Navbar from '../Navbar';
+import WhyChose from './WhyChoose';
+import CallToAction from './CallToAction';
 
 
 function HomePage({ allProducts }) {
@@ -16,10 +18,12 @@ function HomePage({ allProducts }) {
           <Hero />
           {/* We pass the data into FeaturedItems so it can show the cards */}
           <FeaturedItems items={allProducts} />
+          <WhyChose/>
           <Working />
           <Secure />
           <Quote />
           <StartButton />
+          <CallToAction/>
           <Footer />
         </>
      );
