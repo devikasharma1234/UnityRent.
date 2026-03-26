@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
 const express=require("express");
 const cors=require("cors"); // middleware which help in make frontend backend connection without blocking frontend
 const app=express();
@@ -5,13 +8,13 @@ const mongoose=require("mongoose");
 const Banner=require("./model/banner");
 const Product=require("./model/product");
 
-const port=8080;
-
+const PORT=process.env.PORT || 8080;
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/UnityRental');
-
+  const Mongo=process.env.MongoURL;
+  await mongoose.connect(Mongo);
 }
+
 main().then((req,res)=>{
     console.log("working");
 })
@@ -83,6 +86,6 @@ app.get("/api/product/:id",async(req,res)=>{
 })
 
 
-app.listen(port,()=>{
+app.listen(PORT,()=>{
     console.log("app is listening the port:8080");
 })

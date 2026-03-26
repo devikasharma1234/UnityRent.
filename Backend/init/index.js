@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== "production") {
+  require('dotenv').config();
+}
 const mongoose = require("mongoose");
 const Banner=require("../model/banner");
 const bannerData=require("./bannerData");
@@ -5,7 +8,8 @@ const Product = require("../model/product");
 const allData = require("./data");
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/UnityRental');
+  const Mongo=process.env.MongoURL;
+  await mongoose.connect(Mongo);
 }
 
 async function init() {
