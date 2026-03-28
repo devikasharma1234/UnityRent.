@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import heroImg from "../../assets/studentHero.png";
+import heroImg from "../../assets/student.png";
 import axios from 'axios';
 import "./Hero.css";
 
@@ -43,4 +43,4 @@ useEffect(() => {
   );
 };
 
-export default Hero
+export default Hero;
