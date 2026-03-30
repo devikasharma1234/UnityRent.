@@ -10,6 +10,7 @@ const allData = require("./data");
 async function main() {
   const Mongo=process.env.MongoURL;
   await mongoose.connect(Mongo);
+  console.log("Connected to MongoDB ATLAS successfully!");
 }
 
 async function init() {
@@ -26,7 +27,6 @@ async function init() {
     const ban=await Banner.find({});
     const items = await Product.find({}); 
     console.log(ban);
-    console.log("Current Items in DB:", items);
   } catch (err) {
     console.log("Initialization Error:", err);
   }

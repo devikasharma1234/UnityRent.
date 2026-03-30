@@ -1,83 +1,97 @@
 import * as React from 'react';
 import { AppBar, Box, Toolbar, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem, InputBase, IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import GoogleTranslate from './GoogleTranslate.jsx'; // Ensure path is correct
 import './Navbar.css';
 
 const pages = ['Home', 'Browse', 'About Us', 'Contact'];
 const settings = ['Profile', 'My Rentals', 'Logout'];
 
 function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [searchQuery, setSearchQuery] = React.useState("");
+
+  // Handler for search input
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    console.log("Searching for:", e.target.value); 
+    // You can pass this searchQuery to your parent component to filter items
+  };
 
   return (
-    <AppBar position="sticky" className="navbar-main">
+    <AppBar position="sticky" className="navbar-main" sx={{ bgcolor: 'white', boxShadow: '0 2px 10px rgba(0,0,0,0.05)' }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters className="toolbar-flex">
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
           
           {/* 1. LOGO SECTION */}
-          <div className="logo-section">
-            <Typography variant="h6" noWrap component="a" href="/" className="brand-logo">
-               UnityRent
-            </Typography>
-          </div>
+          <Typography 
+            variant="h6" 
+            noWrap 
+            component="a" 
+            href="/" 
+            className="brand-logo"
+            sx={{ fontWeight: 800, color: '#002d5b', textDecoration: 'none' }}
+          >
+            UnityRent
+          </Typography>
 
-          {/* 2. SEARCH SECTION  */}
-          <div className="search-wrapper">
-            <div className="search-icon-box">
-              <SearchIcon fontSize="small" />
-            </div>
+          {/* 2. SEARCH SECTION */}
+          <Box className="search-wrapper" sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            bgcolor: '#f1f3f4', 
+            px: 2, 
+            borderRadius: '20px',
+            flexGrow: 0.5,
+            mx: 4
+          }}>
+            <SearchIcon fontSize="small" sx={{ color: '#5f6368', mr: 1 }} />
             <InputBase
-              placeholder="Search items..."
-              className="search-field"
-              inputProps={{ 'aria-label': 'search' }}
+              placeholder="Search for cycles, books, tech..."
+              fullWidth
+              value={searchQuery}
+              onChange={handleSearch}
+              sx={{ fontSize: '0.9rem' }}
             />
-          </div>
-
-          {/* 3. SPACER  */}
-          <Box sx={{ flexGrow: 0.1 }} />
-
-          {/* 4. NAV LINKS SECTION */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: '20px', mr: 4 }}>
-            {pages.map((page) => (
-              <Button key={page} className="nav-item-link">
-                {page}
-              </Button>
-            ))}
           </Box>
 
-          {/* 5. USER PROFILE */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={(e) => setAnchorElUser(e.currentTarget)} sx={{ p: 0 }}>
-                <Avatar alt="User" sx={{ width: 35, height: 35, bgcolor: '#ddd', fontSize: '1rem', color: '#555' }}>U</Avatar>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser} // menu stick to the Avatar
-                  anchorOrigin={{
-                   vertical: 'top',
-                   horizontal: 'right',
-                 }}
-                 keepMounted
-                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                 }}
-                open={Boolean(anchorElUser)} //  the menu is open
-                onClose={() => setAnchorElUser(null)} // Closes the menu 
-            >
-             {settings.map((setting) => (
-             <MenuItem key={setting} onClick={() => setAnchorElUser(null)}>
-             <Typography sx={{ textAlign: 'center', px: 2 }}>{setting}</Typography>
-            </MenuItem>
-             ))}
-          </Menu>
-          </Box>
+          {/* 3. NAV LINKS & UTILS */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            
+            {/* Desktop Nav Links */}
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: '15px', mr: 2 }}>
+              {pages.map((page) => (
+                <Button key={page} sx={{ color: '#333', textTransform: 'none', fontWeight: 600 }}>
+                  {page}
+                </Button>
+              ))}
+            </Box>
 
+            {/* --- TRANSLATION ICON ADDED HERE --- */}
+            <GoogleTranslate />
+
+            {/* USER PROFILE */}
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={(e) => setAnchorElUser(e.currentTarget)} sx={{ p: 0, ml: 1 }}>
+                  <Avatar alt="User" sx={{ width: 35, height: 35, bgcolor: '#002d5b' }}>M</Avatar>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                anchorEl={anchorElUser}
+                open={Boolean(anchorElUser)}
+                onClose={() => setAnchorElUser(null)}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={() => setAnchorElUser(null)}>
+                    <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
