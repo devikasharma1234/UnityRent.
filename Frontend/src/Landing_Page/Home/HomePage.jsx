@@ -3,11 +3,9 @@ import Hero from './Hero';
 import Working from './Working';
 import Secure from './Secure';
 import FeaturedItems from './FeaturedItems';
-import Quote from './Quote';
 import StartButton from './StartButton';
 import WhyChose from './WhyChoose';
 import CallToAction from './CallToAction';
-
 
 function HomePage({ allProducts }) {
     return ( 
@@ -18,7 +16,6 @@ function HomePage({ allProducts }) {
           <WhyChose/>
           <Working />
           <Secure />
-          <Quote />
           <StartButton />
           <CallToAction/>
         </>
