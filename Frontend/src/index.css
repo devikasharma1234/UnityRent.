@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+body{
+    font-family: 'Inter', sans-serif;
+}
+
+.dark{
+    color-scheme: dark;
+}
+/* 5. Force the body and html to stay at the top regardless of inline styles */
+body {
+    top: 0 !important;
+    position: static !important;
+}
+
+
+
+/* 7. Target the "Original Text" tooltip that appears when you hover over translated text */
+#goog-gt-tt, .goog-te-balloon-frame {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+
+html{
+    scroll-behavior: smooth;
+}
+/* ... keep your existing 1-8 rules ... */
+
+/* 9. Hide the Google branding text that appears inside the dropdown */
+.goog-logo-link, .goog-te-gadget span {
+    display: none !important;
+}
+
+.goog-te-gadget {
+    color: transparent !important;
+    font-size: 0 !important;
+}
+
+/* 6. ONLY hide the skiptranslate elements that are part of the top banner */
+.goog-te-banner-frame.skiptranslate, 
+#goog-gt-tt.skiptranslate {
+    display: none !important;
+}
+
+/* 8. Fix for the 'View this page in' bar + hide the attribution */
+div#google_translate_element + div, 
+.goog-te-banner-frame,
+#goog-gt-tt {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* 11. Add this to make the dropdown menu look cleaner when it pops up */
+.goog-te-menu-frame {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+    border: none !important;
+    border-radius: 8px !important;
+}
