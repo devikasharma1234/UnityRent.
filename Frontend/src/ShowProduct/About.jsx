@@ -14,8 +14,6 @@ const About = ({allProducts}) => {
   }, []);
 
 
-
-
     return ( 
         <>
           {/* We pass the data into FeaturedItems so it can show the cards */}
@@ -24,8 +22,6 @@ const About = ({allProducts}) => {
         
         </>
      );
-
-
 
 };
 

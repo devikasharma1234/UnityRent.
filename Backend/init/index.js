@@ -1,5 +1,7 @@
+const path = require('path');
+
 if (process.env.NODE_ENV !== "production") {
-  require('dotenv').config();
+  require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 }
 const mongoose = require("mongoose");
 const Banner=require("../model/banner");
@@ -31,6 +33,8 @@ async function init() {
     console.log("Initialization Error:", err);
   }
 }
+
+console.log("Database URL is:", process.env.MONGO_URL);
 
 // THE FIX: Chain them so init() waits for main()
 main()
