@@ -63,7 +63,7 @@ function App() {
           <Route path="/bookservice/:id" element={<BookService allServices={services} />} />
          
           {/* 3. Optional: Add more routes here later */}
-          <Route path='/item/:id' element={<IteamDetails/>} />
+          <Route path='/item/:id' element={<IteamDetails refreshProducts={fetchProducts}/>} />
           <Route path='/book/:id' element={<BookItem/>} />
         </Routes>
 

@@ -82,11 +82,11 @@ const RecordView = () => {
   )}
 
   {/* NEW: Upload Button appears only after recording stops */}
-  {status === "stopped" && mediaBlobUrl && (
+  {/* {status === "stopped" && mediaBlobUrl && (
     <Button variant="contained" color="success" onClick={handleUpload}>
       Upload to Cloud
     </Button>
-  )}
+  )} */}
 </Box>
     </Box>
   ) 

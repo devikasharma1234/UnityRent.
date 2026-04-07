@@ -10,13 +10,29 @@ import {
 } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import axios from "axios";
 
-function ItemDetail() {
+function ItemDetail({refreshProduct}) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const handleDelete=async()=>{
+    if(window.confirm("Are you sure you want to delete this product")){
+      try{
+        await axios.delete(`http://localhost:8080/item/${id}`);
+        alert("product delete Successfully");
+        window.location.href="/";
+        navigate('/');
+      }catch(err){
+        console.error("product is not deleted",err.response?.data || err.message);
+      }
+    };
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0); // Always scroll to top on load
@@ -47,11 +63,22 @@ function ItemDetail() {
       
       {/* 1. TOP NAVIGATION & ACTIONS */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
-        <Breadcrumbs separator=">" aria-label="breadcrumb">
+        <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link underline="hover" color="inherit" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>Home</Link>
           <Typography color="text.primary">{product.category}</Typography>
         </Breadcrumbs>
         
+        {/* --- ADDED DELETE BUTTON  */}
+          <Tooltip title="Delete Listing">
+            <IconButton 
+              onClick={handleDelete} 
+              style={{ border: '1px solid #d32f2f', color: '#d32f2f' }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+
+
         <div style={{ display: 'flex', gap: '10px' }}>
           <Tooltip title="Share">
             <IconButton onClick={handleShare} style={{ border: '1px solid #eee' }}><ShareIcon /></IconButton>
@@ -136,7 +163,7 @@ function ItemDetail() {
               onClick={() => navigate(`/book/${product._id}`)}
               style={{ 
                 flex: 2, backgroundColor: '#002d5b', color: 'white', 
-                 borderRadius: '50px', border: 'none', 
+                borderRadius: '50px', border: 'none', 
                 fontWeight: '800', fontSize: '1.1rem', cursor: 'pointer',
                 boxShadow: '0 10px 20px rgba(0, 45, 91, 0.2)',
                 transition: '0.3s transform'

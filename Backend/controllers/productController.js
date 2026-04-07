@@ -10,6 +10,28 @@ exports.getProductById=async(req,res)=>{
      }
 };
 
+exports.getProductIdAndDelete=async(req,res)=>{
+   try{
+      const item=await Product.findByIdAndDelete(req.params.id);
+      res.status(200).json({message:"Item delete successfully",success:true});
+    
+   }catch(err){
+      res.status(500).json({message:"server side error"},err);
+   }
+}
+
+exports.getProductIdAndUpdate=async(req,res)=>{
+   try{
+      const {id}=req.params;
+      const productUpdate=req.body;
+
+      const item=await Product.findByIdAndUpdate(id,productUpdate,{new:true});
+      res.status(200).json({status:true,item});
+   }catch(err){
+      res.status(500).json({message:"Server side Update error"},err);
+   }
+}
+
 exports.verifyReturn=async(req,res)=>{
 
    try{
