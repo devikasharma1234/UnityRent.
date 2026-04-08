@@ -118,6 +118,9 @@ function ItemDetail({refreshProduct}) {
             </IconButton>
           </Tooltip>
 
+           <IconButton onClick={() => navigate(`/edit-product/${id}`)}>
+                <EditIcon />
+           </IconButton>
           <div style={{ marginTop: '25px', display: 'flex', alignItems: 'center', gap: '10px', color: '#666' }}>
             <span style={{ fontSize: '1.2rem' }}>📍</span>
             <Typography variant="body2" fontWeight="600">Available at: {product.locationTag}</Typography>

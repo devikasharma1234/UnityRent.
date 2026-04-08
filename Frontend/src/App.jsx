@@ -8,6 +8,7 @@ import IteamDetails from './Landing_Page/Home/IteamDetails';
 import ServicesPage from './Pages/ServicesPage';
 import ServiceDetails from './Pages/ServiceDetails';
 import AddProductForm from './AddNewProductUsingForm/ProductForm';
+import UpdateProduct from './AddNewProductUsingForm/UpdateProductForm';
 import BookService from './Pages/BookService';
 import About from './ShowProduct/About';
 import BookItem from './Landing_Page/Home/BookItem';
@@ -54,6 +55,7 @@ function App() {
           <Route path="/" element={<HomePage allProducts={products.slice(0,4)} allServices={services.slice(0,3)}/>} />
 
           <Route path="/add-product" element={<AddProductForm refreshProducts={fetchProducts} />} />
+          <Route path="/edit-product/:id"  element={<UpdateProduct refreshProducts={fetchProducts} />} />
 
           {/* 2. This is the ABOUT/ShowProduct page */}
           <Route path="/about" element={<About allProducts={products}/>} />
