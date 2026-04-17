@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import GoogleTranslate from './GoogleTranslate.jsx'; // Ensure path is correct
 import './Navbar.css';
 
-const pages = ['Home', 'Browse', 'About Us', 'Contact'];
+const pages = ['Home', 'Browse', 'About Us', 'Login'];
 const settings = ['Profile', 'My Rentals', 'Logout'];
 
 function Navbar() {

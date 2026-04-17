@@ -11,6 +11,9 @@ import BookService from './Pages/BookService';
 import About from './ShowProduct/About';
 import BookItem from './Landing_Page/Home/BookItem';
 import Footer from './Landing_Page/Footer';
+import Login from './Landing_Page/SignIn/Login';
+import EmailVerify from './Landing_Page/SignIn/EmailVerify';
+import ResetPassword from './Landing_Page/SignIn/ResetPassword';
 
 function App() {
 
@@ -48,6 +51,10 @@ function App() {
         <Routes>
           {/* 1. This is your HOME page (the default view) */}
           <Route path="/" element={<HomePage allProducts={products.slice(0,4)} allServices={services.slice(0,3)}/>} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/email-verify" element={<EmailVerify/>}/>
+          <Route path="/reset-password" element={<ResetPassword/>}/>
+          
 
           {/* 2. This is the ABOUT/ShowProduct page */}
           <Route path="/about" element={<About allProducts={products}/>} />
