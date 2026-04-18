@@ -11,7 +11,7 @@ import './Navbar.css';
 
 // No need to import AddNewProduct here anymore since it's a separate page now!
 
-const pages = ['Home', 'Browse', 'About Us', 'Contact'];
+const pages = ['Home', 'Browse', 'About Us', 'Login'];
 const settings = ['Profile', 'My Rentals', 'Logout'];
 
 function Navbar() {
