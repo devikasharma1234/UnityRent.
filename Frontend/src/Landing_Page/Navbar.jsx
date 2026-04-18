@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import InventoryIcon from '@mui/icons-material/Inventory'; // For Products
+import { Link } from 'react-router-dom';
 import { AppBar, Box, Toolbar, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem, InputBase, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -8,7 +11,7 @@ import './Navbar.css';
 
 // No need to import AddNewProduct here anymore since it's a separate page now!
 
-const pages = ['Home', 'Browse', 'About Us', 'Contact'];
+const pages = ['Home', 'Browse', 'About Us', 'Login'];
 const settings = ['Profile', 'My Rentals', 'Logout'];
 
 function Navbar() {
@@ -16,6 +19,8 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchQuery, setSearchQuery] = React.useState("");
 
+
+  const userPhone = localStorage.getItem("userPhone");
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -57,6 +62,22 @@ function Navbar() {
                 </Button>
               ))}
             </Box>
+
+            {/* MY CART / TRACKING ICON */}
+          <Button 
+            component={Link} 
+            to="/cart" 
+            startIcon={<ShoppingCartIcon />}
+            sx={{ 
+              fontWeight: '700', 
+              textTransform: 'none',
+              
+              color: '#002d5b',
+            
+            }}
+          >
+           
+          </Button>
 
             {/* PRODUCT ICON - NAVIGATES TO THE FULL PAGE FORM */}
             <Tooltip title="List an Item">

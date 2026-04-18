@@ -5,6 +5,7 @@ import 'aos/dist/aos.css'
 import Navbar from './Landing_Page/Navbar'
 import HomePage from './Landing_Page/Home/HomePage'
 import IteamDetails from './Landing_Page/Home/IteamDetails';
+import MyCart from './Landing_Page/Home/MyCart';
 import ServicesPage from './Pages/ServicesPage';
 import ServiceDetails from './Pages/ServiceDetails';
 import AddProductForm from './AddNewProductUsingForm/ProductForm';
@@ -13,6 +14,9 @@ import BookService from './Pages/BookService';
 import About from './ShowProduct/About';
 import BookItem from './Landing_Page/Home/BookItem';
 import Footer from './Landing_Page/Footer';
+import Login from './Landing_Page/SignIn/Login';
+import EmailVerify from './Landing_Page/SignIn/EmailVerify';
+import ResetPassword from './Landing_Page/SignIn/ResetPassword';
 
 function App() {
 
@@ -53,6 +57,10 @@ function App() {
         <Routes>
           {/* 1. This is your HOME page (the default view) */}
           <Route path="/" element={<HomePage allProducts={products.slice(0,4)} allServices={services.slice(0,3)}/>} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/email-verify" element={<EmailVerify/>}/>
+          <Route path="/reset-password" element={<ResetPassword/>}/>
+          
 
           <Route path="/add-product" element={<AddProductForm refreshProducts={fetchProducts} />} />
           <Route path="/edit-product/:id"  element={<UpdateProduct refreshProducts={fetchProducts} />} />
@@ -65,6 +73,9 @@ function App() {
           <Route path="/bookservice/:id" element={<BookService allServices={services} />} />
          
           {/* 3. Optional: Add more routes here later */}
+          {/* Add this inside the <Routes> section in App.js */}
+        <Route path="/login" element={<div style={{marginTop: '100px', textAlign: 'center'}}>Login Page Coming Soon!</div>} />
+          <Route path="/cart" element={<MyCart />} />
           <Route path='/item/:id' element={<IteamDetails refreshProducts={fetchProducts}/>} />
           <Route path='/book/:id' element={<BookItem/>} />
         </Routes>

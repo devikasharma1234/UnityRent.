@@ -2,16 +2,19 @@ if (process.env.NODE_ENV !== "production") {
   require('dotenv').config();
 }
 const express=require("express");
+const cookieParser = require('cookie-parser');
 const cors=require("cors"); // middleware which help in make frontend backend connection without blocking frontend
 const app=express();
 const mongoose=require("mongoose");
 const Banner=require("./model/banner");
 const Product=require("./model/product");
 const Service = require("./model/services");
-const AddNewProduct=require("./routes/CreateNewProductRoute");
 const serviceRouter = require("./routes/services");
 const productRouter=require("./routes/productRoute");
+const authRouter=require("./routes/authRoutes");
+const userRouter=require("./routes/userRoutes");
 const PORT=process.env.PORT || 8080;
+
 
 async function main() {
   const Mongo=process.env.MongoURL;
@@ -49,13 +52,18 @@ main().then((req,res)=>{
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/",(req,res)=>{
     res.send("working");
 })
 
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+
 app.use("/newProduct",AddNewProduct);
 app.use("/item",productRouter);
+app.use("/api/booking",bookItemCartRouter);
 app.use("/services", serviceRouter);
 app.get("/api/hero", async (req, res) => {
     try {
