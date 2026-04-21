@@ -7,11 +7,14 @@ import { AppBar, Box, Toolbar, Typography, Menu, Container, Avatar, Button, Tool
 import SearchIcon from '@mui/icons-material/Search';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import GoogleTranslate from './GoogleTranslate.jsx'; 
+import Login from './SignIn/Login.jsx';
 import './Navbar.css';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext.jsx';
 
 // No need to import AddNewProduct here anymore since it's a separate page now!
 
-const pages = ['Home', 'Browse', 'About Us', 'Login'];
+const pages = ['Home', 'Browse', 'About Us'];
 const settings = ['Profile', 'My Rentals', 'Logout'];
 
 function Navbar() {
@@ -20,7 +23,8 @@ function Navbar() {
   const [searchQuery, setSearchQuery] = React.useState("");
 
 
-  const userPhone = localStorage.getItem("userPhone");
+  // const userPhone = localStorage.getItem("userPhone");
+  const {userData, backendUrl, setUserData, setIsLoggedin} = useContext(AppContext)
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -63,6 +67,8 @@ function Navbar() {
               ))}
             </Box>
 
+            
+
             {/* MY CART / TRACKING ICON */}
           <Button 
             component={Link} 
@@ -71,45 +77,74 @@ function Navbar() {
             sx={{ 
               fontWeight: '700', 
               textTransform: 'none',
-              
               color: '#002d5b',
-            
             }}
           >
-           
           </Button>
 
             {/* PRODUCT ICON - NAVIGATES TO THE FULL PAGE FORM */}
-            <Tooltip title="List an Item">
+            {/* <Tooltip title="List an Item">
               <IconButton onClick={() => navigate('/add-product')} sx={{ color: '#002d5b' }}>
                 <PostAddIcon fontSize="medium" />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
+
+            {/* Icons only visible if user data exists */}
+            {userData && (
+              <>
+                <Button component={Link} to="/cart" startIcon={<ShoppingCartIcon />} sx={{ color: '#002d5b' }} />
+                <Tooltip title="List an Item">
+                  <IconButton onClick={() => navigate('/add-product')} sx={{ color: '#002d5b' }}>
+                    <PostAddIcon fontSize="medium" />
+                  </IconButton>
+                </Tooltip>
+              </>
+            )}
 
             <GoogleTranslate />
 
-            {/* USER PROFILE */}
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={(e) => setAnchorElUser(e.currentTarget)} sx={{ p: 0, ml: 1 }}>
-                  <Avatar alt="User" sx={{ width: 35, height: 35, bgcolor: '#002d5b' }}>M</Avatar>
-                </IconButton>
-              </Tooltip>
-              <Menu 
-                sx={{ mt: '45px' }} 
-                anchorEl={anchorElUser} 
-                open={Boolean(anchorElUser)} 
-                onClose={() => setAnchorElUser(null)}
+         {/* CONDITIONAL RENDERING: LOGIN OR PROFILE */}
+            {userData ? (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={(e) => setAnchorElUser(e.currentTarget)} sx={{ p: 0, ml: 1 }}>
+                    <Avatar sx={{ width: 35, height: 35, bgcolor: '#002d5b' }}>
+                      {/* Optional chaining safely gets the first letter */}
+                      {userData?.name ? userData.name.charAt(0).toUpperCase() : 'U'}
+                    </Avatar>
+                  </IconButton>
+                </Tooltip>
+                <Menu 
+                  sx={{ mt: '45px' }} 
+                  anchorEl={anchorElUser} 
+                  open={Boolean(anchorElUser)} 
+                  onClose={() => setAnchorElUser(null)}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={() => {
+                      setAnchorElUser(null);
+                      if(setting === 'Logout') handleLogout();
+                    }}>
+                      <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            ) : (
+              <Button 
+                variant="contained" 
+                onClick={() => navigate('/login')}
+                sx={{ 
+                  bgcolor: '#002d5b', color: 'white', textTransform: 'none', 
+                  fontWeight: 600, borderRadius: '8px',
+                  '&:hover': { bgcolor: '#004080' }
+                }}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={() => setAnchorElUser(null)}>
-                    <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+                Login
+              </Button>
+            )}
+</Box>
 
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>
